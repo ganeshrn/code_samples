@@ -31,9 +31,9 @@ def run_linter(
     inline_completion: str,
 ) -> str:
     """Runs the Runner to populate a LintResult for a given snippet."""
-    # create a temporary file
     transformed_completion = inline_completion
 
+    # create a temporary file
     with tempfile.NamedTemporaryFile(
         mode="w", delete=False, suffix=".yml"
     ) as temp_file:
