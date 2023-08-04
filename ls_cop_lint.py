@@ -11,7 +11,7 @@ from ansiblelint.runner import LintResult, _get_matches
 from ansiblelint.file_utils import Lintable
 from ansiblelint.config import Options
 from ansiblelint.transformer import Transformer
-import timeit
+from pprint import pprint
 
 completion = """---
 - hosts: localhost
@@ -50,7 +50,7 @@ def run_linter(
 
     # read the transformed file
     with open(temp_completion_path, "r", encoding="utf-8") as yaml_file:
-        transformed_completion = yaml.safe_load(yaml_file)
+        transformed_completion = yaml_file.read()
 
     # delete the temporary file
     os.remove(temp_completion_path)
@@ -68,7 +68,9 @@ new_options.write_list = ["all"]
 transformed_completion = run_linter(
     new_options, RulesCollection(rulesdirs=[DEFAULT_RULESDIR]), completion
 )
-print(transformed_completion)
+print(f"----Before----\n{completion}")
+print(f"\n----After----\n{transformed_completion}")
+
 # rules = RulesCollection(rulesdirs=[DEFAULT_RULESDIR], options=new_options)
 # rules.register()
 # results = Runner(test_suggestion, rules=rules).run()
